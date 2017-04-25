@@ -1,3 +1,3 @@
 #!/bin/sh
 
-/startup.sh && catalina.sh run
+sh /startup.sh && sh catalina.sh run
