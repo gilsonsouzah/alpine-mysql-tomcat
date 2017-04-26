@@ -97,6 +97,6 @@ RUN set -e \
 
 EXPOSE 8080 3306
 
-# to set mysql account
-# ENTRYPOINT [ "/entrypoint.sh" ]
+# to set mysql account 
+ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["/run.sh"]

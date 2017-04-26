@@ -28,9 +28,14 @@ else
   cat << EOF > $tfile
 USE mysql;
 FLUSH PRIVILEGES;
+#GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY "$MYSQL_ROOT_PASSWORD" WITH GRANT OPTION;
+CREATE USER 'root'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY "$MYSQL_ROOT_PASSWORD" WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'172.%.%.%' IDENTIFIED BY "$MYSQL_ROOT_PASSWORD" WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
-UPDATE user SET password=PASSWORD("") WHERE user='root' AND host='localhost';
+#UPDATE user SET authentication_string=PASSWORD("") WHERE user='root' AND host='localhost';
+UPDATE user SET password=PASSWORD("$MYSQL_ROOT_PASSWORD") WHERE user='root';
+FLUSH PRIVILEGES;
 EOF
 
   if [ "$MYSQL_DATABASE" != "" ]; then
@@ -47,4 +52,6 @@ EOF
   rm -f $tfile
 fi
 
-exec /usr/bin/mysqld --user=root --console
+# exec /usr/bin/mysqld --user=root --console
+
+exec "$@"
