@@ -47,4 +47,4 @@ EOF
   rm -f $tfile
 fi
 
-# exec /usr/bin/mysqld --user=root --console
+exec /usr/bin/mysqld --user=root --console
