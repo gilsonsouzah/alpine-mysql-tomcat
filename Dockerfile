@@ -8,7 +8,9 @@ COPY entrypoint.sh /entrypoint.sh
 COPY my.cnf /etc/mysql/my.cnf
 COPY run.sh /run.sh
 
-RUN apk add --update mysql && rm -f /var/cache/apk/*
+# RUN apk add --update mysql && rm -f /var/cache/apk/*
+RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/*
+
 
 # to set tomcat
 ENV CATALINA_HOME /usr/local/tomcat
