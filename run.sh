@@ -4,4 +4,4 @@
 
 # /usr/local/mysql/bin/mysqld_safe --user=root & /catalina.sh run
 
-/usr/bin/mysqld_safe --user=root  & $PATH/catalina.sh run
+/usr/bin/mysqld_safe --user=root  & $CATALINA_HOME/bin/catalina.sh run
