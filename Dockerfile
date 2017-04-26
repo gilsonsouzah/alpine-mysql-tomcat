@@ -8,9 +8,8 @@ COPY entrypoint.sh /entrypoint.sh
 COPY my.cnf /etc/mysql/my.cnf
 COPY run.sh /run.sh
 
-# RUN apk add --update mysql && rm -f /var/cache/apk/*
-RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/*
-
+RUN apk add --update mysql && rm -f /var/cache/apk/*
+# RUN apk add --update mysql mysql-client && rm -f /var/cache/apk/*
 
 # to set tomcat
 ENV CATALINA_HOME /usr/local/tomcat
@@ -99,5 +98,4 @@ RUN set -e \
 EXPOSE 8080 3306
 
 # to set mysql account
-ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["/run.sh"]
