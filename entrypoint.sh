@@ -8,7 +8,7 @@ else
   mysql_install_db --user=root > /dev/null
 
   if [ "$MYSQL_ROOT_PASSWORD" = "" ]; then
-    MYSQL_ROOT_PASSWORD=111111
+    MYSQL_ROOT_PASSWORD=47PY7rpS5wfprCtY5nvvqxYD2GU
     echo "[i] MySQL root Password: $MYSQL_ROOT_PASSWORD"
   fi
 
@@ -52,6 +52,8 @@ EOF
   rm -f $tfile
 fi
 
-# exec /usr/bin/mysqld --user=root --console
+if [ -f /dump.sql ]; then
+  mysql -u$MYSQL_USER -p$MYSQL_PASSWORD > /dump.sql
+fi
 
 exec "$@"
