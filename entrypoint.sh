@@ -52,7 +52,7 @@ EOF
 
   if [ -f /dump.sql ]; then
     echo "[i] Dump found: Loading dump into database"
-    /usr/bin/mysqld_safe --user=root --bootstrap < /dump.sql
+    /usr/bin/mysql -uroot -p$MYSQL_ROOT_PASSWORD < /dump.sql
   fi
   rm -f $tfile
 fi
