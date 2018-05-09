@@ -26,7 +26,7 @@ RUN set -ex; \
         gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
     done
 ENV TOMCAT_MAJOR 8
-ENV TOMCAT_VERSION 8.5.30
+ENV TOMCAT_VERSION 8.5.31
 # https://issues.apache.org/jira/browse/INFRA-8753?focusedCommentId=14735394#comment-14735394
 ENV TOMCAT_TGZ_URL https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 # not all the mirrors actually carry the .asc files :'(
