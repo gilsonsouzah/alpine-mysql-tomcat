@@ -1,11 +1,17 @@
 #!/bin/sh
 
+/usr/bin/mysqld_safe > /dev/null 2>&1 &
+
+RET=1
+while [[ RET -ne 0 ]]; do
+    echo "=> Waiting for confirmation of MySQL service startup"
+    sleep 5
+    mysql -uroot -e "status" > /dev/null 2>&1
+    RET=$?
+done
 
 if [ -f /dump.sql ]; then
-    echo "[i] Init file found: Loading database with initial script"
-    /usr/bin/mysqld --user=root --init-file=/dump.sql --console & $CATALINA_HOME/bin/catalina.sh run
-else
-    echo "[i] Init file NOT found: Loading database ONLY"
-    /usr/bin/mysqld --user=root --console & $CATALINA_HOME/bin/catalina.sh run
+    mysql -uroot -p$MYSQL_ROOT_PASSWORD < /dump.sql
 fi
 
+exec $CATALINA_HOME/bin/catalina.sh run
