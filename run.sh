@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "=> Starting MySQL Daemon process"
-/usr/bin/mysqld --user=root
+rc-service mariadb start
 
 RET=1
 while [[ RET -ne 0 ]]; do
