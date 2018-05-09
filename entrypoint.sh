@@ -17,7 +17,7 @@ else
   MYSQL_PASSWORD=${MYSQL_PASSWORD:-""}
 
   if [ ! -d "/run/mysqld" ]; then
-    mkdir -p /run/mysqld_safe
+    mkdir -p /run/mysqld
   fi
 
   tfile=`mktemp`
@@ -48,12 +48,12 @@ EOF
     fi
   fi
 
+  /usr/bin/mysqld --user=root --bootstrap --verbose=0 < $tfile
+
   if [ -f /dump.sql ]; then
     echo "[i] Dump found: Loading dump into database"
-    cat /dump.sql >> $tfile
+    /usr/bin/mysqld_safe --user=root --bootstrap < /dump.sql
   fi
-
-  /usr/bin/mysqld_safe --user=root --bootstrap --verbose=0 < $tfile
   rm -f $tfile
 fi
 
