@@ -53,7 +53,7 @@ EOF
 fi
 
 if [ -f /dump.sql ]; then
-  mysql -u$MYSQL_USER -p$MYSQL_PASSWORD > /dump.sql
+  mysql -u$MYSQL_USER -p$MYSQL_PASSWORD < /dump.sql
 fi
 
 exec "$@"
