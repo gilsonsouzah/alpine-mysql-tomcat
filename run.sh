@@ -1,6 +1,6 @@
 #!/bin/sh
-
-/usr/bin/mysqld --user=root --console &
+echo "=> Starting MySQL Daemon process"
+/usr/bin/mysqld --user=root
 
 RET=1
 while [[ RET -ne 0 ]]; do
@@ -11,6 +11,7 @@ while [[ RET -ne 0 ]]; do
 done
 
 if [ -f /dump.sql ]; then
+    echo "=> Dump file found, seeding database"
     mysql -uroot -p$MYSQL_ROOT_PASSWORD < /dump.sql
 fi
 
