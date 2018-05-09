@@ -48,12 +48,15 @@ EOF
     fi
   fi
 
+  if [ -f /dump.sql ]; then
+    echo "[i] Dump found: Loading dump into database"
+    cat /dump.sql >> $tfile
+  fi
+
   /usr/bin/mysqld --user=root --bootstrap --verbose=0 < $tfile
   rm -f $tfile
 fi
 
-if [ -f /dump.sql ]; then
-  mysql -uroot -p$MYSQL_ROOT_PASSWORD < /dump.sql
-fi
+
 
 exec "$@"
