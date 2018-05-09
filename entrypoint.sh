@@ -17,7 +17,7 @@ else
   MYSQL_PASSWORD=${MYSQL_PASSWORD:-""}
 
   if [ ! -d "/run/mysqld" ]; then
-    mkdir -p /run/mysqld
+    mkdir -p /run/mysqld_safe
   fi
 
   tfile=`mktemp`
@@ -53,7 +53,7 @@ EOF
     cat /dump.sql >> $tfile
   fi
 
-  /usr/bin/mysqld --user=root --bootstrap --verbose=0 < $tfile
+  /usr/bin/mysqld_safe --user=root --bootstrap --verbose=0 < $tfile
   rm -f $tfile
 fi
 
