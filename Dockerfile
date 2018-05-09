@@ -7,6 +7,7 @@ VOLUME /app
 COPY entrypoint.sh /entrypoint.sh
 COPY my.cnf /etc/mysql/my.cnf
 COPY run.sh /run.sh
+COPY build.sh /build.sh
 RUN apk add --update mysql && rm -f /var/cache/apk/*
 
 ENV CATALINA_HOME /usr/local/tomcat
