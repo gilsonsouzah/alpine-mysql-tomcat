@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 /usr/bin/mysqld_safe > /dev/null 2>&1 &
 
@@ -15,21 +15,18 @@ if [ "$MYSQL_PASSWORD" = "" ]; then
     echo "[i] MySQL admin Password: $MYSQL_PASSWORD"
 fi
 
-MYSQL_DATABASE=${MYSQL_DATABASE:-""}
-
-echo "[i]  Creating MySQL admin user with ${MYSQL_PASSWORD} password"
-
 mysql -uroot -e "CREATE USER 'admin'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'"
 mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION"
 
 if [ "$MYSQL_DATABASE" = "" ]; then
+    MYSQL_DATABASE=default
     echo "[i]  Creating MySQL database with name ${MYSQL_DATABASE}"
-    mysql -uroot -e "CREATE SCHEMA '$MYSQL_DATABASE'"
 fi
 
-if [ -f /dump.sql ] ; then
-  echo "[i] Initial script found, running"
-  mysql -uadmin -p$MYSQL_PASSWORD < /dump.sql
+mysql -uroot -e "CREATE SCHEMA '$MYSQL_DATABASE'"
+
+if [ -f /mysql-setup.sh ] ; then
+  . /mysql-setup.sh
 fi
 
 echo "=> Done!"
@@ -43,6 +40,4 @@ echo "Please remember to change the above password as soon as possible!"
 echo "MySQL user 'root' has no password but only allows local connections"
 echo "========================================================================"
 
-
-
-exec "$@"
+mysqladmin -uroot shutdown
