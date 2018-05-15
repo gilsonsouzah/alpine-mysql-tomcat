@@ -23,7 +23,7 @@ if [ "$MYSQL_DATABASE" = "" ]; then
     echo "[i]  Creating MySQL database with name ${MYSQL_DATABASE}"
 fi
 
-mysql -uroot -e "CREATE SCHEMA '$MYSQL_DATABASE'"
+mysql -uroot -e "CREATE SCHEMA `$MYSQL_DATABASE`"
 
 if [ -f /mysql-setup.sh ] ; then
   . /mysql-setup.sh
